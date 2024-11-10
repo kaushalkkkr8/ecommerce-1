@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts, updateProductWishlist } from "../features/productSlice";
 import { Link } from "react-router-dom";
+import { addToCart } from "../features/cartSlice";
 
 const WishList = () => {
 
@@ -25,7 +26,10 @@ const WishList = () => {
     alert(newWishlistStatus===true?"Added to WishList":'Removed from wishlist' )
   };
 
- 
+  const addToCartHandler = (product) => {
+    dispatch(addToCart(product));
+    alert("added to cart")
+  };
   return (
     <>
       <Navbar showSearch={false} />
@@ -51,7 +55,9 @@ const WishList = () => {
                         <h4 className="fw-bold">₹ 2000</h4>
                       </div>
                       <div className="">
-                        <button className="btn rounded-0 btn-warning w-100">Add to cart</button>
+                      <button className="btn rounded-0 btn-warning w-100" onClick={() => addToCartHandler(prod)}>
+                          Add to cart
+                        </button>
                       </div>
                     </div>
                   </div>

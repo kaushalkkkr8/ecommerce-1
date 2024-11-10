@@ -80,7 +80,7 @@ const CartPage = () => {
     <>
       <Navbar showSearch={false} />
       {status === "loading" && <p>Loading...</p>}
-      {error && <p>{error}</p>}
+    
       <div className="container-fluid text-bg-dark p-3">
         <h2 className="text-center">Your Cart</h2>
         <div className="container py-4">
@@ -93,7 +93,6 @@ const CartPage = () => {
                     <div className="card mb-3 border-0 shadow">
                       <div className="row g-0">
                         <div className="col-md-6">
-                          
                           <img src={prod.image} className="img-fluid rounded-start" alt="Product" />
                         </div>
                         <div className="col-md-6">
