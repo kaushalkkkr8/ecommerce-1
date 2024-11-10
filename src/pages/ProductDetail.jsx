@@ -22,7 +22,7 @@ const ProductDetailPage = () => {
               <div className="row   ">
                 <div className="col-md-6">
                   <img src={data.image} className="img-fluid w-100 " alt="" />
-                  <button className="btn rounded-0 btn-warning w-100" onClick={() => addToCartHandler(prod)}>
+                  <button className="btn rounded-0 btn-warning w-100" onClick={() => addToCartHandler(data)}>
                     Add to cart
                   </button>
                   <hr />
@@ -73,10 +73,7 @@ const ProductDetailPage = () => {
                     </h5>
                     <p>50% Off</p>
 
-                    {/* <h5>
-                      <i className="bi bi-plus-circle" style={{ cursor: "pointer" }} onClick={clickHandlerCountAdd}></i> <i className={`bi bi-${count}-square `}></i>{" "}
-                      <i className="bi bi-dash-circle" style={{ cursor: "pointer" }} onClick={clickHandlerCountSub}></i>
-                    </h5> */}
+                  
                     <p>
                       <select aria-label="Small select example" className="bg-dark text-white shodow">
                         <option selected>Select Size</option>
@@ -92,7 +89,7 @@ const ProductDetailPage = () => {
                 </div>
               </div>
               <hr />
-              {/* <h4>More Items related to your choice </h4> */}
+          
             </div>
           </>
         )}

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts, updateProductWishlist } from "../features/productSlice";
+import { Link } from "react-router-dom";
 
 const WishList = () => {
 
@@ -39,7 +40,9 @@ const WishList = () => {
               ? data.map((prod) => (
                   <div className="col-md-3 p-2" key={prod._id}>
                     <div className="card card border-0 shadow">
+                    <Link to={`/allcategory/${prod._id}`} state={prod}>
                       <img src={prod.image} className="card-img-top" alt="..." />
+                    </Link>
                       <div className="card-body text-center  ">
                         <p>
                           {prod.name}
