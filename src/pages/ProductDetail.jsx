@@ -1,10 +1,12 @@
 import { useLocation } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { addToCart } from "../features/cartSlice";
+import { useDispatch } from "react-redux";
 
 const ProductDetailPage = () => {
   const location = useLocation();
   const data = location.state;
+  const dispatch=useDispatch()
 
   const addToCartHandler = (product) => {
     dispatch(addToCart(product));
