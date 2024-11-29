@@ -7,15 +7,29 @@ const ProductDetailPage = () => {
   const location = useLocation();
   const data = location.state;
   const dispatch=useDispatch()
+  const [showToast, setShowToast] = useState(false)
 
   const addToCartHandler = (product) => {
     dispatch(addToCart(product));
+    setShowToast(true); 
+      setTimeout(() => setShowToast(false), 3000); 
   };
 
   return (
     <div>
       <Navbar showSearch={false} />
       <div className="container-fluid text-bg-dark p-3">
+
+      {showToast && (
+           <div className="position-fixed top-0 end-0 p-3" style={{ zIndex: 1050 }}>
+           <div className="toast show align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+             <div className="d-flex">
+               <div className="toast-body">Added to cart</div>
+               <button type="button" className="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+             </div>
+           </div>
+         </div>
+      )}
         {data && (
           <>
             <div className="container py-4">

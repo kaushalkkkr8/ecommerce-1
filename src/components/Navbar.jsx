@@ -32,7 +32,7 @@ const Navbar = ({ onSearch, showSearch = true }) => {
             </div>
           </div>
           <div className="d-flex justify-content-end">
-            <button className="btn btn-secondary me-5 ">Log In</button>
+            {/* <button className="btn btn-secondary me-5 ">Log In</button> */}
             <Link to="/wishlist">
               <h5>
                 <i className="bi bi-heart me-4 position-relative text-white">

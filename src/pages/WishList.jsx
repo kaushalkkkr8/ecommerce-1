@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { addToCart } from "../features/cartSlice";
 
 const WishList = () => {
-
+  const [showToast, setShowToast] = useState(false)
   const dispatch=useDispatch()
   const { products, status, error } = useSelector((state) => state.products);
  
@@ -28,7 +28,8 @@ const WishList = () => {
 
   const addToCartHandler = (product) => {
     dispatch(addToCart(product));
-    alert("added to cart")
+    setShowToast(true); 
+    setTimeout(() => setShowToast(false), 3000); 
   };
   return (
     <>
@@ -36,10 +37,22 @@ const WishList = () => {
  
       {status === "loading" && <p>Loading...</p>}
       {error && <p>{error}</p>}
-      <div className="container-fluid text-bg-dark p-3">
+
+      {showToast && (
+           <div className="position-fixed top-0 end-0 p-3" style={{ zIndex: 1050 }}>
+           <div className="toast show align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+             <div className="d-flex">
+               <div className="toast-body">Added to cart</div>
+               <button type="button" className="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+             </div>
+           </div>
+         </div>
+      )}
+
+      <div className="container-fluid text-bg-dark p-3" style={{ minHeight: "100vh" }}>
         <h2 className="text-center">Wishlist</h2>
         <div className="container py-4">
-          <div className="row bg-light shadow p-5">
+          <div className="row  shadow p-5">
             {data.length>0
               ? data.map((prod) => (
                   <div className="col-md-3 p-2" key={prod._id}>

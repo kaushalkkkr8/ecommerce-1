@@ -7,7 +7,7 @@ import { addToCart } from "../features/cartSlice";
 import { Link, useLocation } from "react-router-dom";
 
 const CategoryPage = () => {
-  const location= useLocation()
+  const location = useLocation();
   const [searchTerm, setSearchTerm] = useState("");
 
   const initialGender = location.state ? [location.state] : [];
@@ -17,13 +17,11 @@ const CategoryPage = () => {
   const [filteredData, setFilterData] = useState([]);
   const [range, setRange] = useState(0);
   const [sorted, setSorted] = useState("none");
-  
+
+  const [showToast, setShowToast] = useState(false);
 
   const dispatch = useDispatch();
-  const { products, status, error } = useSelector((state) => state.products)
-
-  
-
+  const { products, status, error } = useSelector((state) => state.products);
 
   useEffect(() => {
     dispatch(fetchProducts());
@@ -31,7 +29,7 @@ const CategoryPage = () => {
 
   useEffect(() => {
     filterData();
-  }, [gender, rating, range, sorted, products,searchTerm]);
+  }, [gender, rating, range, sorted, products, searchTerm]);
 
   const sorting = (e) => {
     setSorted(e.target.value);
@@ -39,9 +37,7 @@ const CategoryPage = () => {
 
   const genderFilter = (e) => {
     const { value, checked } = e.target;
-    setGender((prevData) =>
-      checked ? [...prevData, value] : prevData.filter((data) => data !== value)
-    );
+    setGender((prevData) => (checked ? [...prevData, value] : prevData.filter((data) => data !== value)));
   };
   const ratingFilter = (e) => {
     setRating(e.target.value);
@@ -50,10 +46,7 @@ const CategoryPage = () => {
     setRange(parseInt(e.target.value));
   };
 
-
-
   const clearFilter = () => {
-    
     setGender([]);
     setRating("all");
     setRange(0);
@@ -82,16 +75,12 @@ const CategoryPage = () => {
     }
 
     if (searchTerm) {
-      filtered = filtered.filter((prod) =>
-        prod.name.toLowerCase().includes(searchTerm.toLowerCase())
-      );
+      filtered = filtered.filter((prod) => prod.name.toLowerCase().includes(searchTerm.toLowerCase()));
     }
     setFilterData(filtered);
   };
-  
 
   const handleSearch = (term) => setSearchTerm(term);
- 
 
   const wishListClickHandler = (prodId) => {
     const product = products.find((prod) => prod._id === prodId);
@@ -101,17 +90,30 @@ const CategoryPage = () => {
 
   const addToCartHandler = (product) => {
     dispatch(addToCart(product));
-    alert("added to cart")
-  };
 
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 3000);
+  };
 
   return (
     <>
-    <Navbar onSearch={handleSearch}  showSearch={true}/>
-   
+      <Navbar onSearch={handleSearch} showSearch={true} />
+
       {status === "loading" && <p>Loading...</p>}
       {error && <p>{error}</p>}
-      <div className="bg-dark">
+
+      {showToast && (
+        <div className="position-fixed top-0 end-0 p-3" style={{ zIndex: 1050 }}>
+          <div className="toast show align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+            <div className="d-flex">
+              <div className="toast-body">Added to cart</div>
+              <button type="button" className="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <div className="bg-dark" style={{ minHeight: "100vh" }}>
         <div className="p-4">
           <div className="row">
             <div className="col-md-2 text-bg-dark bg-opacity-80">
@@ -120,7 +122,9 @@ const CategoryPage = () => {
                 <div className="col-md-12">
                   <div className="d-flex justify-content-between">
                     <h5>Filter</h5>
-                    <button className="btn btn-primary" onClick={clearFilter}>Clear</button>
+                    <button className="btn btn-primary" onClick={clearFilter}>
+                      Clear
+                    </button>
                   </div>
 
                   <label htmlFor="customRange2" className="form-label">
@@ -141,13 +145,11 @@ const CategoryPage = () => {
                 <label>Category</label>
                 <br />
                 <br />
-                <input type="checkbox" name="category" id="" value="Male" onChange={genderFilter} checked={gender.includes("Male")}/> Men Clothing
+                <input type="checkbox" name="category" id="" value="Male" onChange={genderFilter} checked={gender.includes("Male")} /> Men Clothing
                 <br />
-                <input type="checkbox" name="category" id="" value="Female" onChange={genderFilter} checked={gender.includes("Female")} />
-                Women Clothing
+                <input type="checkbox" name="category" id="" value="Female" onChange={genderFilter} checked={gender.includes("Female")} /> Women Clothing
                 <br />
-                <input type="checkbox" name="category" id="" value="Kids" onChange={genderFilter}  checked={gender.includes("Kids")}/>
-                Kids Clothing
+                <input type="checkbox" name="category" id="" value="Kids" onChange={genderFilter} checked={gender.includes("Kids")} /> Kids Clothing
                 <br />
               </div>
 
@@ -194,12 +196,20 @@ const CategoryPage = () => {
                 {filteredData?.map((prod, index) => (
                   <div className="col-md-3 my-2" key={index}>
                     <div className="card border-0 shadow">
-                    <Link to={`/allcategory/${prod._id}`} state={prod}>
-                      <img src={prod.image} className="card-img-top" alt={prod.name} />
+                      <Link to={`/allcategory/${prod._id}`} state={prod}>
+                        <img src={prod.image} className="card-img-top" alt={prod.name} />
                       </Link>
                       <div className="card-body text-center ">
-                        <p style={{cursor:"pointer"}}>
-                          {prod.name} <i className={prod.wishlist ? "bi bi-heart-fill float-end text-danger" : "bi bi-heart float-end text-danger"} onClick={() => wishListClickHandler(prod._id)}></i>
+                        <p style={{ cursor: "pointer" }}>
+                          <b>{prod.name} </b>
+                          <i className={prod.wishlist ? "bi bi-heart-fill float-end text-danger" : "bi bi-heart float-end text-danger"} onClick={() => wishListClickHandler(prod._id)}></i>
+                        </p>
+                        <p>
+                          <i className={`bi ${prod.rating >= 1 ? "bi-star-fill" : prod.rating == 0.5 ? "bi-star-half" : "bi-star"} text-danger`}></i>
+                          <i className={`bi ${prod.rating >= 2 ? "bi-star-fill" : prod.rating == 1.5 ? "bi-star-half" : "bi-star"} text-danger`}></i>
+                          <i className={`bi ${prod.rating >= 3 ? "bi-star-fill" : prod.rating == 2.5 ? "bi-star-half" : "bi-star"} text-danger`}></i>
+                          <i className={`bi ${prod.rating >= 4 ? "bi-star-fill" : prod.rating == 3.5 ? "bi-star-half" : "bi-star"} text-danger`}></i>
+                          <i className={`bi ${prod.rating == 5 ? "bi-star-fill" : prod.rating == 4.5 ? "bi-star-half" : "bi-star"} text-danger`}></i>
                         </p>
                         <h4 className="fw-bold">₹ {prod.price}</h4>
                       </div>
@@ -215,7 +225,6 @@ const CategoryPage = () => {
             </div>
           </div>
         </div>
-        
       </div>
     </>
   );

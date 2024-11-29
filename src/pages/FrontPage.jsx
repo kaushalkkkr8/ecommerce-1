@@ -5,37 +5,37 @@ const FrontPage = () => {
   return (
     <>
      <Navbar showSearch={false} />
-      <div className="bg-dark">
+     <div className="bg-dark" style={{ minHeight: "100vh" }}>
         <div className="container">
           <div className="py-3">
             <div className="row ">
-              <div className="col">
-                <div className="card" style={{ width: "15rem" }}>
+              <div className="col-md-3">
+                <div className="card" >
                   <Link to="/allcategory">
-                    <img src="https://vklada.ru/wp-content/uploads/2023/05/ipoteka-2016-sberbank.jpg" className="img-fluid" alt="All" />
+                    <img src="https://vklada.ru/wp-content/uploads/2023/05/ipoteka-2016-sberbank.jpg" className="card-img" alt="All" />
                   </Link>
                 </div>
               </div>
-              <div className="col">
-                <div className="card" style={{ width: "15rem" }}>
+              <div className="col-md-3">
+                <div className="card" >
                   <Link to="/allcategory" state={"Male"}>
-                    <img src="https://artist.md/storage/images/Artist/68/thumbnail/pasha-parfeniy-4.jpg" className="img-fluid" alt="Men" />
+                    <img src="https://artist.md/storage/images/Artist/68/thumbnail/pasha-parfeniy-4.jpg" className="card-img" alt="Men" />
                   </Link>
                 </div>
               </div>
-              <div className="col">
-                <div className="card" style={{ width: "15rem" }}>
+              <div className="col-md-3">
+                <div className="card" >
                   <Link to="/allcategory" state={"Female"}>
-                    <img src="https://thumbs.dreamstime.com/t/fashion-pretty-cool-girl-wearing-sunglasses-backpack-skateboard-over-orange-background-65577230.jpg" className="img-fluid" alt="Women" />
+                    <img src="https://thumbs.dreamstime.com/t/fashion-pretty-cool-girl-wearing-sunglasses-backpack-skateboard-over-orange-background-65577230.jpg" className="card-img" alt="Women" />
                   </Link>
                 </div>
               </div>
-              <div className="col">
-                <div className="card" style={{ width: "15rem" }}>
+              <div className="col-md-3">
+                <div className="card" >
                   <Link to="/allcategory" state={"Kids"}>
                     <img
                       src="https://thumbs.dreamstime.com/t/surprised-little-girl-open-mouth-hands-cheeks-surprised-pretty-little-girl-big-deep-brown-eyes-open-mouth-117368943.jpg"
-                      className="img-fluid"
+                      className="card-img"
                       alt="Kids"
                     />
                   </Link>
