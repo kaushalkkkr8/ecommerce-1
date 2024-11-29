@@ -2,6 +2,7 @@ import { useLocation } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { addToCart } from "../features/cartSlice";
 import { useDispatch } from "react-redux";
+import { useState } from "react";
 
 const ProductDetailPage = () => {
   const location = useLocation();
