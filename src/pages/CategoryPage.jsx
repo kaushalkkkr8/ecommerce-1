@@ -92,7 +92,7 @@ const CategoryPage = () => {
     dispatch(addToCart(product));
 
     setShowToast(true);
-    setTimeout(() => setShowToast(false), 3000);
+    setTimeout(() => setShowToast(false), 2000);
   };
 
   return (

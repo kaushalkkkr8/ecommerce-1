@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import Navbar from "../components/Navbar";
 import { useEffect } from "react";
-import {  useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { fetchOrder, postOrder } from "../features/orderSlice";
 
 const Order = () => {
@@ -18,14 +18,13 @@ const Order = () => {
 
   const placeOrder = () => {
     dispatch(postOrder(order));
-    alert("Your Order is placed successfully",navigate('/allcategory'))
-    
+    alert("Your Order is placed successfully", navigate("/allcategory"));
   };
 
   return (
     <>
-     <Navbar showSearch={false} />
-    
+      <Navbar showSearch={false} />
+
       <div className="container-fluid text-bg-dark p-3">
         <h2 className="text-center">Your Cart</h2>
         <div className="container py-4">

@@ -23,13 +23,12 @@ const WishList = () => {
     const product = data.find((prod) => prod._id === prodId);
     const newWishlistStatus = !product.wishlist;
     dispatch(updateProductWishlist({ id: prodId, updatedData: { wishlist: newWishlistStatus } }));
-    alert(newWishlistStatus===true?"Added to WishList":'Removed from wishlist' )
   };
 
   const addToCartHandler = (product) => {
     dispatch(addToCart(product));
     setShowToast(true); 
-    setTimeout(() => setShowToast(false), 3000); 
+    setTimeout(() => setShowToast(false), 2000); 
   };
   return (
     <>
@@ -49,10 +48,10 @@ const WishList = () => {
          </div>
       )}
 
-      <div className="container-fluid text-bg-dark p-3" style={{ minHeight: "100vh" }}>
+      <div className="container-fluid text-bg-dark p-3 " style={{ minHeight: "100vh" }}>
         <h2 className="text-center">Wishlist</h2>
         <div className="container py-4">
-          <div className="row  shadow p-5">
+          <div className="row text-bg-light shadow p-5">
             {data.length>0
               ? data.map((prod) => (
                   <div className="col-md-3 p-2" key={prod._id}>

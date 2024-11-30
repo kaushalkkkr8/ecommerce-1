@@ -3,7 +3,9 @@ import axios from "axios";
 const api="https://major-project1-backend.vercel.app"
 // const api="http://localhost:5000"
 export const postAddress = createAsyncThunk("address/postAddress", async (address) => {
-  const res = await axios.post(`${api}/address`, { address });
+
+  
+  const res = await axios.post(`${api}/address`,  address );
 
   return res.data;
 });
