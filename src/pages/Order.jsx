@@ -1,16 +1,19 @@
 import { useDispatch } from "react-redux";
 import Navbar from "../components/Navbar";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { fetchOrder, postOrder } from "../features/orderSlice";
+import { deleteCartItem } from "../features/cartSlice";
 
 const Order = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
-  const order = location?.state;
 
-  console.log("order", order);
+  const [showToast, setShowToast] = useState(false);
+
+  const order = location?.state;
+  console.log(order);
 
   useEffect(() => {
     dispatch(fetchOrder());
@@ -18,14 +21,32 @@ const Order = () => {
 
   const placeOrder = () => {
     dispatch(postOrder(order));
-    alert("Your Order is placed successfully", navigate("/allcategory"));
+    setShowToast(true);
+    setTimeout(() => {
+      setShowToast(false);
+      navigate("/allcategory");
+    }, 1500);
+
+     order.items.forEach((item) =>  dispatch(deleteCartItem(item.productId)));
+ 
   };
 
   return (
     <>
       <Navbar showSearch={false} />
 
-      <div className="container-fluid text-bg-dark p-3">
+      {showToast && (
+        <div className="position-fixed top-0 end-0 p-3" style={{ zIndex: 1050 }}>
+          <div className="toast show align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+            <div className="d-flex">
+              <div className="toast-body">Order Complete</div>
+              <button type="button" className="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <div className="container-fluid text-bg-dark p-3" style={{ minHeight: "100vh" }}>
         <h2 className="text-center">Your Cart</h2>
         <div className="container py-4">
           <div className=" bg-light shadow p-5">
@@ -58,8 +79,8 @@ const Order = () => {
                   <p>
                     <b>Address:</b> {order?.address}
                   </p>
-                  <button className="btn btn-primary  ms-auto " onClick={placeOrder}>
-                    Place Order
+                  <button className="btn btn-success  ms-auto " onClick={placeOrder}>
+                    Checkout
                   </button>
                 </div>
               </div>
