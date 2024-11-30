@@ -89,14 +89,7 @@ const ProductDetailPage = () => {
                     <p>50% Off</p>
 
                   
-                    <p>
-                      <select aria-label="Small select example" className="bg-dark text-white shodow">
-                        <option selected>Select Size</option>
-                        <option value="small">Small</option>
-                        <option value="medium">Medium</option>
-                        <option value="Large">Large</option>
-                      </select>
-                    </p>
+                   
                   </div>
                   <hr />
                   <p className="fw-bold">Description</p>
