@@ -34,6 +34,10 @@ const CartPage = () => {
       const totalItem = cart.reduce((acc, curr) => acc + (quantities[curr._id] || 1), 0);
       const totalAmount = cart.reduce((acc, curr) => acc + parseInt(curr.price) * quantities[curr._id], 0);
       dispatch(updateCartStat({ totalItem, totalAmount }));
+    } else if (cart.length === 0) {
+      const totalItem = 0;
+      const totalAmount = 0;
+      dispatch(updateCartStat({ totalItem, totalAmount }));
     }
   }, [cart, dispatch, quantities]);
 
@@ -148,8 +152,7 @@ const CartPage = () => {
                   </div>
                 ))}
 
-
-<div className="card p-3 ">
+              <div className="card p-3 ">
                 <div className="card-body">
                   <p className="fw-bold">Price Details</p>
                   <hr />
@@ -228,7 +231,6 @@ const CartPage = () => {
                   </div>
                 </div>
               </div>
-             
             </div>
           </div>
         </div>

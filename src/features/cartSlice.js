@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-const api="https://major-project1-backend.vercel.app"
+const api = "https://major-project1-backend.vercel.app";
 // const api="http://localhost:5000"
 export const fetchCartItem = createAsyncThunk("cart/fetchCart", async () => {
   const res = await axios.get(`${api}/cartData`);
