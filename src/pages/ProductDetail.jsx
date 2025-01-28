@@ -44,25 +44,25 @@ const ProductDetailPage = () => {
                   <div className="row">
                     <div className="col">
                       <h4>
-                        <i class="bi bi-truck text-warning"></i>
+                        <i className="bi bi-truck text-warning"></i>
                       </h4>
                       <p>Free Delivery</p>
                     </div>
                     <div className="col">
                       <h4>
-                        <i class="bi bi-c-square text-warning"></i>
+                        <i className="bi bi-c-square text-warning"></i>
                       </h4>
                       <p>COD</p>
                     </div>
                     <div className="col">
                       <h4>
-                        <i class="bi bi-credit-card-2-front text-warning"></i>
+                        <i className="bi bi-credit-card-2-front text-warning"></i>
                       </h4>
                       <p>Secure Payment</p>
                     </div>
                     <div className="col">
                       <h5>
-                        <i class="bi bi-box2-fill text-warning"></i>
+                        <i className="bi bi-box2-fill text-warning"></i>
                       </h5>
                       <p>10 Days Return</p>
                     </div>

@@ -48,7 +48,7 @@ const Navbar = ({ onSearch, showSearch = true }) => {
                 <i className="bi bi-heart me-4 position-relative text-white">
                   <small
                     className="position-absolute font-reset top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle text-white"
-                    style={{ fontSize: "0.6rem", width: "1rem", height: "1rem", display: "flex", alignItems: "center", justifyContent: "center" }}
+                    style={{ fontSize: "0.6rem", width: "0.5rem", height: "0.5rem", display: "flex", alignItems: "center", justifyContent: "center" }}
                   >
                     +
                   </small>

@@ -14,7 +14,7 @@ const CartPage = () => {
   const [state, setState] = useState("");
   const [pincode, setPincode] = useState("");
   const [quantities, setQuantities] = useState({});
-
+  const [showToast, setShowToast] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState("");
 
   const { cart, cartStat, status, error } = useSelector((state) => state.cart);
@@ -99,9 +99,27 @@ const CartPage = () => {
     dispatch(deleteAddress(id));
   };
 
+    const checkOut = () => {
+  
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 2000);
+    };
+
   return (
     <>
       <Navbar showSearch={false} />
+
+
+      {showToast && (
+        <div className="position-fixed top-0 end-0 p-3" style={{ zIndex: 1050 }}>
+          <div className="toast show align-items-center text-bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
+            <div className="d-flex">
+              <div className="toast-body">Please select your delivery address!!</div>
+              <button type="button" className="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="container-fluid text-bg-dark p-3" style={{ minHeight: "100vh" }}>
         <h2 className="text-center">Your Cart</h2>
@@ -117,7 +135,7 @@ const CartPage = () => {
               {status !== "loading" &&
                 (cart.length > 0 ? (
                   cart.map((prod) => (
-                    <div className="p-2" key={prod._id}>
+                    <div className="p-2" key={prod?._id}>
                       <div className="card mb-3 border-0 shadow">
                         <div className="row g-0">
                           <div className="col-md-6">
@@ -210,8 +228,8 @@ const CartPage = () => {
                     {Array.isArray(address) &&
                       address?.map((addr) => (
                         <>
-                          <div className="collapse" id="collapseExample2">
-                            <div className="card my-1" key={addr._id}>
+                          <div className="collapse" id="collapseExample2" key={addr?._id}>
+                            <div className="card my-1" >
                               <div className="card-body">
                                 <p>
                                   {" "}
@@ -255,33 +273,14 @@ const CartPage = () => {
                           </>
                         )}
                         <div className="d-flex justify-content-center">
-                          {selectedAddress && cart.length > 0 ? (
+                          {selectedAddress? (
                             <Link to="/order" state={orderDetails} className="btn btn-primary">
                               Checkout
                             </Link>
                           ) : (
                             <button
-                              className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal3"
-                              onClick={() => (
-                                <>
-                                  <div className="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModal3Label" aria-hidden="true">
-                                    <div className="modal-dialog">
-                                      <div className="modal-content">
-                                     
-                                        <div className="modal-body">Please select an address to deliver product</div>
-                                        <div className="modal-footer">
-                                          <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">
-                                            Close
-                                          </button>
-                                          <button type="button" className="btn btn-primary">
-                                            Save changes
-                                          </button>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </>
-                              )}
+                              className="btn btn-primary" 
+                              onClick={checkOut}
                             >
                               Checkout
                             </button>

@@ -194,7 +194,7 @@ const CategoryPage = () => {
               {status === "loading" ? (
                 <div className="text-center">
                   {" "}
-                  <div class="spinner-border text-warning" role="status"></div>
+                  <div className="spinner-border text-warning" role="status"></div>
                 </div>
               ) : (
                 <div className="row">

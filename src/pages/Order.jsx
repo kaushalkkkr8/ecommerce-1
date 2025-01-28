@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import Navbar from "../components/Navbar";
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { fetchOrder, postOrder } from "../features/orderSlice";
 import { deleteCartItem } from "../features/cartSlice";
 
@@ -15,18 +15,19 @@ const Order = () => {
   const order = location?.state;
   console.log(order);
 
- 
-
   const placeOrder = () => {
     dispatch(postOrder(order));
     setShowToast(true);
     setTimeout(() => {
       setShowToast(false);
       navigate("/allcategory");
-    }, 1500);
+    }, 2000);
 
     order.items.forEach((item) => dispatch(deleteCartItem(item.productId)));
   };
+  const catPage=()=>{
+    navigate("/allcategory");
+  }
 
   return (
     <>
@@ -36,7 +37,12 @@ const Order = () => {
         <div className="position-fixed top-0 end-0 p-3" style={{ zIndex: 1050 }}>
           <div className="toast show align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
             <div className="d-flex">
-              <div className="toast-body">Order Complete</div>
+              <div className="toast-body">Order Successfull</div>
+              <div class="btn-group btn-group-sm" role="group" aria-label="Small button group">
+                <button className="btn btn-outline-warning" onClick={catPage}>
+                  Continue Shopping
+                </button>
+              </div>
               <button type="button" className="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
           </div>
@@ -48,7 +54,7 @@ const Order = () => {
         <div className="container py-4">
           <div className="card">
             <div className="card-body">
-              <table class="table table-borderless">
+              <table className="table table-borderless">
                 <thead>
                   <tr>
                     <th scope="col"></th>
@@ -102,7 +108,7 @@ const Order = () => {
                 <div className=" col-md-3 text-center ">
                   <p>
                     {" "}
-                    <b>Total: </b> &nbsp;  &nbsp; Rs. {order?.items?.reduce((acc, curr) => acc + curr.quantity * curr.price, 0)}
+                    <b>Total: </b> &nbsp; &nbsp; Rs. {order?.items?.reduce((acc, curr) => acc + curr.quantity * curr.price, 0)}
                   </p>
                 </div>
                 <div className="">
