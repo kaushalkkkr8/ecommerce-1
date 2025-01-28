@@ -34,7 +34,7 @@ const WishList = () => {
     <>
       <Navbar showSearch={false} />
  
-      {status === "loading" && <p>Loading...</p>}
+    
       {error && <p>{error}</p>}
 
       {showToast && (
@@ -50,8 +50,12 @@ const WishList = () => {
 
       <div className="container-fluid text-bg-dark p-3 " style={{ minHeight: "100vh" }}>
         <h2 className="text-center">Wishlist</h2>
-        <div className="container py-4">
-          <div className="row text-bg-light shadow p-5">
+        {status === "loading" ? (
+                <div className="text-center">
+                  {" "}
+                  <div class="spinner-border text-warning" role="status"></div>
+                </div>):(<div className="container py-4">
+          
             {data.length>0
               ? data.map((prod) => (
                   <div className="col-md-3 p-2" key={prod._id}>
@@ -79,8 +83,9 @@ const WishList = () => {
                   <h1>Your wishlist is empty</h1>
                 </div>
               )}
-          </div>
-        </div>
+          
+        </div>)}
+        
       </div>
     </>
   );

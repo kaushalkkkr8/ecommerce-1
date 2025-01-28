@@ -99,7 +99,6 @@ const CategoryPage = () => {
     <>
       <Navbar onSearch={handleSearch} showSearch={true} />
 
-      {status === "loading" && <p>Loading...</p>}
       {error && <p>{error}</p>}
 
       {showToast && (
@@ -169,7 +168,7 @@ const CategoryPage = () => {
               <br />
               {/* Sort by price              */}
               <div>
-                <label htmlFor="">Short By</label>
+                <label htmlFor="">Sort By Price :-</label>
                 <br />
                 <input
                   type="radio"
@@ -192,36 +191,51 @@ const CategoryPage = () => {
             </div>
 
             <div className="col-md-10">
-              <div className="row">
-                {filteredData?.map((prod, index) => (
-                  <div className="col-md-3 my-2" key={index}>
-                    <div className="card border-0 shadow">
-                      <Link to={`/allcategory/${prod._id}`} state={prod}>
-                        <img src={prod.image} className="card-img-top" alt={prod.name} />
-                      </Link>
-                      <div className="card-body text-center ">
-                        <p style={{ cursor: "pointer" }}>
-                          <b>{prod.name} </b>
-                          <i className={prod.wishlist ? "bi bi-heart-fill float-end text-danger" : "bi bi-heart float-end text-danger"} onClick={() => wishListClickHandler(prod._id)}></i>
-                        </p>
-                        <p>
-                          <i className={`bi ${prod.rating >= 1 ? "bi-star-fill" : prod.rating == 0.5 ? "bi-star-half" : "bi-star"} text-danger`}></i>
-                          <i className={`bi ${prod.rating >= 2 ? "bi-star-fill" : prod.rating == 1.5 ? "bi-star-half" : "bi-star"} text-danger`}></i>
-                          <i className={`bi ${prod.rating >= 3 ? "bi-star-fill" : prod.rating == 2.5 ? "bi-star-half" : "bi-star"} text-danger`}></i>
-                          <i className={`bi ${prod.rating >= 4 ? "bi-star-fill" : prod.rating == 3.5 ? "bi-star-half" : "bi-star"} text-danger`}></i>
-                          <i className={`bi ${prod.rating == 5 ? "bi-star-fill" : prod.rating == 4.5 ? "bi-star-half" : "bi-star"} text-danger`}></i>
-                        </p>
-                        <h4 className="fw-bold">₹ {prod.price}</h4>
+              {status === "loading" ? (
+                <div className="text-center">
+                  {" "}
+                  <div class="spinner-border text-warning" role="status"></div>
+                </div>
+              ) : (
+                <div className="row">
+                  {filteredData?.length > 0 ? (
+                    filteredData?.map((prod, index) => (
+                      <div className="col-md-3 my-2" key={index}>
+                        <div className="card border-0 shadow">
+                          <Link to={`/allcategory/${prod._id}`} state={prod}>
+                            <img src={prod.image} className="card-img-top" alt={prod.name} />
+                          </Link>
+                          <div className="card-body text-center ">
+                            <p style={{ cursor: "pointer" }}>
+                              <b>{prod.name} </b>
+                              <i className={prod.wishlist ? "bi bi-heart-fill float-end text-danger" : "bi bi-heart float-end text-danger"} onClick={() => wishListClickHandler(prod._id)}></i>
+                            </p>
+                            <p>
+                              <i className={`bi ${prod.rating >= 1 ? "bi-star-fill" : prod.rating == 0.5 ? "bi-star-half" : "bi-star"} text-danger`}></i>
+                              <i className={`bi ${prod.rating >= 2 ? "bi-star-fill" : prod.rating == 1.5 ? "bi-star-half" : "bi-star"} text-danger`}></i>
+                              <i className={`bi ${prod.rating >= 3 ? "bi-star-fill" : prod.rating == 2.5 ? "bi-star-half" : "bi-star"} text-danger`}></i>
+                              <i className={`bi ${prod.rating >= 4 ? "bi-star-fill" : prod.rating == 3.5 ? "bi-star-half" : "bi-star"} text-danger`}></i>
+                              <i className={`bi ${prod.rating == 5 ? "bi-star-fill" : prod.rating == 4.5 ? "bi-star-half" : "bi-star"} text-danger`}></i>
+                            </p>
+                            <h4 className="fw-bold">₹ {prod.price}</h4>
+                          </div>
+                          <div className="">
+                            <button className="btn rounded-0 btn-warning w-100" onClick={() => addToCartHandler(prod)}>
+                              Add to cart
+                            </button>
+                          </div>
+                        </div>
                       </div>
-                      <div className="">
-                        <button className="btn rounded-0 btn-warning w-100" onClick={() => addToCartHandler(prod)}>
-                          Add to cart
-                        </button>
+                    ))
+                  ) : (
+                    <div className="text-center text-white " >
+                      <div className="row align-items-center justify-content-center" style={{height:"300px"}}>
+                        <h1 className="display-4 fw-bold">No Product Found</h1>
                       </div>
                     </div>
-                  </div>
-                ))}
-              </div>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         </div>

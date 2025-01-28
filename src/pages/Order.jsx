@@ -15,9 +15,7 @@ const Order = () => {
   const order = location?.state;
   console.log(order);
 
-  useEffect(() => {
-    dispatch(fetchOrder());
-  }, [dispatch]);
+ 
 
   const placeOrder = () => {
     dispatch(postOrder(order));
@@ -27,8 +25,7 @@ const Order = () => {
       navigate("/allcategory");
     }, 1500);
 
-     order.items.forEach((item) =>  dispatch(deleteCartItem(item.productId)));
- 
+    order.items.forEach((item) => dispatch(deleteCartItem(item.productId)));
   };
 
   return (
@@ -49,37 +46,67 @@ const Order = () => {
       <div className="container-fluid text-bg-dark p-3" style={{ minHeight: "100vh" }}>
         <h2 className="text-center">Your Cart</h2>
         <div className="container py-4">
-          <div className=" bg-light shadow p-5">
-            <div className="card">
-              <div className="card-body">
-                <div className="row">
-                  <h3 className="col">Name of Product</h3>
-                  <h3 className="col">Order Quantity</h3>
-                  <h3 className="col">Order Price</h3>
-                  <h3 className="col text-center">Total Price</h3>
-                </div>
-
-                {order &&
-                  order?.items?.map((item) => (
-                    <div key={item._id}>
-                      <div className="row">
-                        <h5 className="col text-center">{item.productName}</h5>
-                        <h5 className="col text-center"> {item.quantity}</h5>
-                        <h5 className="col text-center"> {item.price}</h5>
-                        <h5 className="col text-center"> {item.quantity * item.price}</h5>
-                      </div>
-                      <hr />
-                    </div>
-                  ))}
-                <div className="d-flex container px-5">
-                  <h5>Total</h5>
-                  <h5 className="ms-auto me-5">{order?.items?.reduce((acc, curr) => acc + curr.quantity * curr.price, 0)}</h5>
-                </div>
-                <div className="d-flex container px-5">
+          <div className="card">
+            <div className="card-body">
+              <table class="table table-borderless">
+                <thead>
+                  <tr>
+                    <th scope="col"></th>
+                    <th scope="col ">
+                      {" "}
+                      <h3> Product Name</h3>
+                    </th>
+                    <th scope="col">
+                      <h3> Order Quantity</h3>
+                    </th>
+                    <th scope="col">
+                      <h3> Order Price</h3>
+                    </th>
+                    <th scope="col">
+                      <h3> Total Price</h3>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {order &&
+                    order?.items?.map((item) => (
+                      <tr>
+                        <th scope="row">1</th>
+                        <td>
+                          {" "}
+                          <h5 className="mx-5">{item.productName}</h5>
+                        </td>
+                        <td>
+                          {" "}
+                          <h5 className="mx-5"> {item.quantity}</h5>
+                        </td>
+                        <td>
+                          <h5 className="mx-5"> {item.price}</h5>
+                        </td>
+                        <td>
+                          {" "}
+                          <h5 className="mx-5"> {item.quantity * item.price}</h5>
+                        </td>
+                      </tr>
+                    ))}
+                </tbody>
+              </table>
+              <hr />
+              <div className="row  ">
+                <div className="col-md-6 text-center">
                   <p>
                     <b>Address:</b> {order?.address}
                   </p>
-                  <button className="btn btn-success  ms-auto " onClick={placeOrder}>
+                </div>
+                <div className="col-md-3"></div>
+                <div className=" col-md-3 text-center ">
+                  <p>
+                    {" "}
+                    <b>Total: </b> &nbsp;  &nbsp; Rs. {order?.items?.reduce((acc, curr) => acc + curr.quantity * curr.price, 0)}
+                  </p>
+                </div>
+                <div className="">
+                  <button className="btn btn-success  float-end me-5" onClick={placeOrder}>
                     Checkout
                   </button>
                 </div>

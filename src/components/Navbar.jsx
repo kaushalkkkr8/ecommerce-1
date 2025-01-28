@@ -25,7 +25,7 @@ const Navbar = ({ onSearch, showSearch = true }) => {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <div className="mx-auto">
               {showSearch && (
-                <div className="input-group " style={{ width: "250px" }}>
+                <div className="input-group " style={{ width: "300px" }}>
                   <input className="form-control form-control-sm" type="search" placeholder="Search" aria-label="Search" onChange={handleSearchChange} />
                 </div>
               )}
@@ -33,6 +33,16 @@ const Navbar = ({ onSearch, showSearch = true }) => {
           </div>
           <div className="d-flex justify-content-end">
             {/* <button className="btn btn-secondary me-5 ">Log In</button> */}
+            <Link to="/profile" className="text-white  text-decoration-none" >
+            <h4>
+            <i className="bi bi-person me-4"></i>
+            </h4>
+            </Link>
+            <Link to="/orderList" className="text-white  text-decoration-none" >
+            <h4>
+            <i className="bi bi-box2-heart me-4"></i>
+            </h4>
+            </Link>
             <Link to="/wishlist">
               <h5>
                 <i className="bi bi-heart me-4 position-relative text-white">

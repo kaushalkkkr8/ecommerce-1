@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import Navbar from "../components/Navbar";
+
 import { deleteCartItem, fetchCartItem, updateCartStat } from "../features/cartSlice";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -51,7 +52,9 @@ const CartPage = () => {
   const clickHandlerDelete = (prodId) => {
     dispatch(deleteCartItem(prodId));
   };
-  const addressSubmit = () => {
+  const addressSubmit = (e) => {
+    e.preventDefault();
+
     const address = {
       name: name,
       address1: addres,
@@ -59,7 +62,9 @@ const CartPage = () => {
       state: state,
       pincode: pincode,
     };
+
     dispatch(postAddress(address));
+
     setName("");
     setAddress("");
     setCity("");
@@ -97,13 +102,18 @@ const CartPage = () => {
   return (
     <>
       <Navbar showSearch={false} />
-      {status === "loading" && <p>Loading...</p>}
 
-      <div className="container-fluid text-bg-dark p-3">
+      <div className="container-fluid text-bg-dark p-3" style={{ minHeight: "100vh" }}>
         <h2 className="text-center">Your Cart</h2>
+        {status === "loading" && (
+          <div className="text-center">
+            {" "}
+            <div className="spinner-border text-warning" role="status"></div>
+          </div>
+        )}
         <div className="container py-4">
-          <div className="row bg-light shadow p-5">
-            <div className="col-md-6">
+          <div className="row p-5">
+            <div className="col-md-7">
               {status !== "loading" &&
                 (cart.length > 0 ? (
                   cart.map((prod) => (
@@ -111,7 +121,7 @@ const CartPage = () => {
                       <div className="card mb-3 border-0 shadow">
                         <div className="row g-0">
                           <div className="col-md-6">
-                            <img src={prod.image} className="card-img rounded-start" alt="Product" />
+                            <img src={prod.image} className="img-fluid" alt="Product" />
                           </div>
                           <div className="col-md-6">
                             <div className="card-body">
@@ -125,7 +135,7 @@ const CartPage = () => {
                               <p className="fw-bold">50% off</p>
                               <div className="row">
                                 <div className="col-md-5">
-                                  <p>Quantity:</p>
+                                  <b>Quantity:</b>
                                 </div>
                                 <div className="col-md-5">
                                   <h5>
@@ -147,88 +157,139 @@ const CartPage = () => {
                     </div>
                   ))
                 ) : (
-                  <div className="text-center text-dark">
+                  <div className="text-center ">
                     <h1>Your cart is empty</h1>
                   </div>
                 ))}
-
-              <div className="card p-3 ">
-                <div className="card-body">
-                  <p className="fw-bold">Price Details</p>
-                  <hr />
-
-                  {cartStat && (
-                    <>
-                      <h5>
-                        Total Products<span className="float-end"> {cartStat.totalItem}-items </span>
-                      </h5>
-                      <h5>
-                        {" "}
-                        Price<span className="float-end"> {cartStat.totalAmount} </span>
-                      </h5>
-
-                      <hr />
-                      <p className="fw-bold">
-                        Total Amount: <span className="float-end">₹ {cartStat.totalAmount}</span>
-                      </p>
-                    </>
-                  )}
-                  <div className="d-flex justify-content-center">
-                    {selectedAddress && cart.length > 0 ? (
-                      <Link to="/order" state={orderDetails} className="btn btn-primary">
-                        Checkout
-                      </Link>
-                    ) : (
-                      <button className="btn btn-primary" onClick={() => alert("Please select an address to proceed to checkout. or cart is empty")}>
-                        Checkout
-                      </button>
-                    )}
-                  </div>
-                </div>
-              </div>
             </div>
 
-            <div className="col-md-6">
-              <div className="card  p-3">
+            <div className="col-md-5">
+              <div className=" p-3">
                 <div className="card-body ">
-                  <div className="card">
-                    <div className="card-body">
-                      <form className="">
-                        <input type="text" className="form-control" value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" />
-                        <input type="text" className="form-control" value={addres} onChange={(e) => setAddress(e.target.value)} placeholder="Address" />
-
-                        <input type="text" className="form-control" value={city} onChange={(e) => setCity(e.target.value)} placeholder="City" />
-                        <input type="text" className="form-control" value={state} onChange={(e) => setState(e.target.value)} placeholder="State" />
-                        <input type="text" className="form-control" value={pincode} onChange={(e) => setPincode(e.target.value)} placeholder="Pincode" />
-                        <br />
-                        <button className="btn btn-outline-primary" type="button" onClick={addressSubmit}>
-                          Add address
-                        </button>
-                      </form>
+                  <div>
+                    <p className="gap-1">
+                      <button type="button" className="btn btn-outline-secondary text-bg-light w-100" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Add Address
+                      </button>
+                    </p>
+                    <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div className="modal-dialog">
+                        <div className="modal-content p-3">
+                          <h2 className="text-center">Add Address</h2>
+                          <form className="m-3" onSubmit={addressSubmit}>
+                            <input type="text" className="form-control my-2" value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" required />
+                            <input type="text" className="form-control my-2" value={addres} onChange={(e) => setAddress(e.target.value)} placeholder="Address" required />
+                            <input type="text" className="form-control my-2" value={city} onChange={(e) => setCity(e.target.value)} placeholder="City" required />
+                            <input type="text" className="form-control my-2" value={state} onChange={(e) => setState(e.target.value)} placeholder="State" required />
+                            <input type="text" className="form-control my-2" value={pincode} onChange={(e) => setPincode(e.target.value)} placeholder="Pincode" required />
+                            <br />
+                            <button className="btn btn-outline-success" type="submit" data-bs-dismiss={name && addres && city && state && pincode ? "modal" : ""}>
+                              Add address
+                            </button>
+                            <button type="button" className="btn btn-secondary float-end" data-bs-dismiss="modal">
+                              Close
+                            </button>
+                          </form>
+                        </div>
+                      </div>
                     </div>
                   </div>
                   <div>
+                    <p className="gap-1">
+                      <button
+                        className="btn btn-outline-secondary text-bg-light dropdown-toggle w-100"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#collapseExample2"
+                        aria-expanded="false"
+                        aria-controls="collapseExample2"
+                      >
+                        Your Address
+                      </button>
+                    </p>
                     {Array.isArray(address) &&
                       address?.map((addr) => (
-                        <div className="card my-1" key={addr._id}>
-                          <div className="card-body">
-                            <p>
-                              {" "}
-                              <input
-                                type="radio"
-                                value={addr.name + "," + addr.address1 + "," + addr.city + "," + addr.state + "," + addr.pincode}
-                                name="address"
-                                onChange={(e) => setSelectedAddress(e.target.value)}
-                              />{" "}
-                              {addr.name},{addr.address1},{addr.city},{addr.state},{addr.pincode}
-                            </p>
-                            <button className="btn rounded-0 float-end" onClick={() => deleteAdd(addr?._id)}>
-                              <i className="bi bi-trash3-fill text-danger"></i>
-                            </button>
+                        <>
+                          <div className="collapse" id="collapseExample2">
+                            <div className="card my-1" key={addr._id}>
+                              <div className="card-body">
+                                <p>
+                                  {" "}
+                                  <input
+                                    type="radio"
+                                    value={addr.name + "," + addr.address1 + "," + addr.city + "," + addr.state + "," + addr.pincode}
+                                    name="address"
+                                    onChange={(e) => setSelectedAddress(e.target.value)}
+                                  />{" "}
+                                  {addr.name},{addr.address1},{addr.city},{addr.state},{addr.pincode}
+                                </p>
+                                <button className="btn rounded-0 float-end" onClick={() => deleteAdd(addr?._id)}>
+                                  <i className="bi bi-trash3-fill text-danger"></i>
+                                </button>
+                              </div>
+                            </div>
                           </div>
-                        </div>
+                        </>
                       ))}
                   </div>
+                  {cart.length > 0 && (
+                    <div className="card p-3 ">
+                      <div className="card-body">
+                        <p className="fw-bold">Price Details</p>
+                        <hr />
+
+                        {cartStat && (
+                          <>
+                            <h5>
+                              Total Products<span className="float-end"> {cartStat.totalItem}-items </span>
+                            </h5>
+                            <h5>
+                              {" "}
+                              Price<span className="float-end"> {cartStat.totalAmount} </span>
+                            </h5>
+
+                            <hr />
+                            <p className="fw-bold">
+                              Total Amount: <span className="float-end">₹ {cartStat.totalAmount}</span>
+                            </p>
+                          </>
+                        )}
+                        <div className="d-flex justify-content-center">
+                          {selectedAddress && cart.length > 0 ? (
+                            <Link to="/order" state={orderDetails} className="btn btn-primary">
+                              Checkout
+                            </Link>
+                          ) : (
+                            <button
+                              className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal3"
+                              onClick={() => (
+                                <>
+                                  <div className="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModal3Label" aria-hidden="true">
+                                    <div className="modal-dialog">
+                                      <div className="modal-content">
+                                     
+                                        <div className="modal-body">Please select an address to deliver product</div>
+                                        <div className="modal-footer">
+                                          <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">
+                                            Close
+                                          </button>
+                                          <button type="button" className="btn btn-primary">
+                                            Save changes
+                                          </button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </>
+                              )}
+                            >
+                              Checkout
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

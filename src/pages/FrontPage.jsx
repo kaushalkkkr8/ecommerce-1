@@ -9,32 +9,32 @@ const FrontPage = () => {
         <div className="container">
           <div className="py-3">
             <div className="row ">
-              <div className="col-md-3">
+              <div className="col-md-3 mb-2">
                 <div className="card" >
                   <Link to="/allcategory">
-                    <img src="https://vklada.ru/wp-content/uploads/2023/05/ipoteka-2016-sberbank.jpg" className="card-img" alt="All" />
+                    <img src="https://cdn.culture.ru/images/242995c8-4a2b-53a0-aed5-2ea84fcf926b" className="card-img" alt="All" />
                   </Link>
                 </div>
               </div>
-              <div className="col-md-3">
+              <div className="col-md-3 mb-2">
                 <div className="card" >
                   <Link to="/allcategory" state={"Male"}>
-                    <img src="https://artist.md/storage/images/Artist/68/thumbnail/pasha-parfeniy-4.jpg" className="card-img" alt="Men" />
+                    <img src="https://tver.all-zabor.ru/images/reviews/rev3.jpg" className="card-img" alt="Men" />
                   </Link>
                 </div>
               </div>
-              <div className="col-md-3">
+              <div className="col-md-3 mb-2">
                 <div className="card" >
                   <Link to="/allcategory" state={"Female"}>
-                    <img src="https://thumbs.dreamstime.com/t/fashion-pretty-cool-girl-wearing-sunglasses-backpack-skateboard-over-orange-background-65577230.jpg" className="card-img" alt="Women" />
+                    <img src="https://m.media-amazon.com/images/M/MV5BZjZmNWNhMDUtMWEzNi00NzZhLWFmYzUtNzgxYjg1NzBjZjhlXkEyXkFqcGdeQXVyMjQwMDg0Ng@@._V1_.jpg" className="card-img" alt="Women" />
                   </Link>
                 </div>
               </div>
-              <div className="col-md-3">
+              <div className="col-md-3 mb-2">
                 <div className="card" >
                   <Link to="/allcategory" state={"Kids"}>
                     <img
-                      src="https://thumbs.dreamstime.com/t/surprised-little-girl-open-mouth-hands-cheeks-surprised-pretty-little-girl-big-deep-brown-eyes-open-mouth-117368943.jpg"
+                      src="https://u.9111s.ru/uploads/202110/05/939fb6b6adb2692af33b2d24266037c6.jpg"
                       className="card-img"
                       alt="Kids"
                     />

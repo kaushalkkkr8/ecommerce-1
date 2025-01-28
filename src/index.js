@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
+
 import App from './App';
 import{createBrowserRouter,RouterProvider} from 'react-router-dom'
 import WishList from './pages/WishList';
@@ -11,6 +13,8 @@ import store from './app/store';
 import CategoryPage from './pages/CategoryPage';
 import ProductDetailPage from './pages/ProductDetail';
 import Order from './pages/Order';
+import Profile from './pages/Profile';
+import OrderList from './pages/OrderList';
 
 const router= createBrowserRouter([
   {
@@ -36,7 +40,15 @@ const router= createBrowserRouter([
   {
     path:'/order',
     element:<Order/>
-  }
+  },
+  {
+    path:'/profile',
+    element:<Profile/>
+  },
+  {
+    path:'/orderList',
+    element:<OrderList/>
+  },
 ])
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
